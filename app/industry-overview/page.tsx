@@ -133,6 +133,23 @@ export default function IndustryOverview() {
             The interactive graphs and table below offer a clear view of key performance metrics.
           </motion.p>
 
+          {/* Responsive Video Section */}
+          <motion.section
+            className="w-full max-w-4xl mx-auto"
+            variants={fadeUpVariant}
+          >
+            <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-lg shadow-lg">
+              <iframe
+                className="absolute top-0 left-0 w-full h-full"
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                title="Industry Overview Video"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </motion.section>
+
           {/* Graphs Section */}
           <motion.section
             className="bg-white p-6 rounded-lg shadow-lg"
