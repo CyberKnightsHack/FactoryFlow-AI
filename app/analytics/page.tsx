@@ -1,7 +1,18 @@
 'use client';
 
 import Sidebar from '../components/Layout/Sidebar';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart, Line } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  LineChart,
+  Line,
+} from 'recharts';
 
 // Temporary mock data
 const mockUser = {
@@ -29,48 +40,59 @@ export default function Analytics() {
   return (
     <>
       <Sidebar user={mockUser} />
-      <main className="flex-1 p-8 overflow-auto">
+      <main className="flex-1 p-4 sm:p-8 overflow-auto">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl font-bold mb-8">Analytics</h1>
+          <h1 className="text-3xl font-bold mb-8 text-center sm:text-left">Analytics</h1>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow">
+            {/* Robot Efficiency Chart */}
+            <div className="bg-white p-4 sm:p-6 rounded-lg shadow">
               <h2 className="text-xl font-semibold mb-4">Robot Efficiency</h2>
-              <BarChart width={500} height={300} data={efficiencyData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="efficiency" fill="#3B82F6" />
-              </BarChart>
+              <div className="w-full" style={{ height: 300 }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={efficiencyData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="efficiency" fill="#3B82F6" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow">
+            {/* Task Completion Trends Chart */}
+            <div className="bg-white p-4 sm:p-6 rounded-lg shadow">
               <h2 className="text-xl font-semibold mb-4">Task Completion Trends</h2>
-              <LineChart width={500} height={300} data={taskCompletionData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="day" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="completed" stroke="#10B981" />
-                <Line type="monotone" dataKey="pending" stroke="#EF4444" />
-              </LineChart>
+              <div className="w-full" style={{ height: 300 }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={taskCompletionData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="day" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Line type="monotone" dataKey="completed" stroke="#10B981" />
+                    <Line type="monotone" dataKey="pending" stroke="#EF4444" />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow lg:col-span-2">
+            {/* Performance Metrics */}
+            <div className="bg-white p-4 sm:p-6 rounded-lg shadow lg:col-span-2">
               <h2 className="text-xl font-semibold mb-4">Performance Metrics</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="p-4 bg-blue-50 rounded-lg">
+                <div className="p-4 bg-blue-50 rounded-lg text-center">
                   <h3 className="text-lg font-medium text-blue-700">Average Efficiency</h3>
                   <p className="text-3xl font-bold text-blue-900">90%</p>
                 </div>
-                <div className="p-4 bg-green-50 rounded-lg">
+                <div className="p-4 bg-green-50 rounded-lg text-center">
                   <h3 className="text-lg font-medium text-green-700">Tasks Completed Today</h3>
                   <p className="text-3xl font-bold text-green-900">45</p>
                 </div>
-                <div className="p-4 bg-yellow-50 rounded-lg">
+                <div className="p-4 bg-yellow-50 rounded-lg text-center">
                   <h3 className="text-lg font-medium text-yellow-700">Active Robots</h3>
                   <p className="text-3xl font-bold text-yellow-900">8/10</p>
                 </div>
