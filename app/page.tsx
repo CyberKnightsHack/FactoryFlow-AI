@@ -1,4 +1,4 @@
-import './styles.css';
+import '/styles.css';
 
 import Sidebar from './components/Layout/Sidebar';
 import RobotStatus from './components/Dashboard/RobotStatus';
