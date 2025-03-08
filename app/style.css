@@ -1,0 +1,158 @@
+/* styles.css */
+
+/* Base styles for all devices */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  font-size: 2rem;
+  padding: 10px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.sidebar {
+  width: 250px;
+  float: left;
+  background-color: #f7f7f7;
+  padding: 15px;
+}
+
+.main-content {
+  margin-left: 260px;
+  padding: 15px;
+}
+
+/* Mobile devices (up to 576px) */
+@media (max-width: 576px) {
+  .container {
+    width: 100%;
+    padding: 10px;
+  }
+  
+  .header {
+    font-size: 1.5rem;
+  }
+  
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .sidebar {
+    width: 100%;
+    float: none;
+    margin-bottom: 15px;
+  }
+  
+  .main-content {
+    margin-left: 0;
+  }
+}
+
+/* Small devices (landscape phones, 577px to 768px) */
+@media (min-width: 577px) and (max-width: 768px) {
+  .container {
+    width: 100%;
+    padding: 15px;
+  }
+  
+  .header {
+    font-size: 1.75rem;
+  }
+  
+  .navbar {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  
+  .sidebar {
+    width: 200px;
+  }
+  
+  .main-content {
+    margin-left: 210px;
+  }
+}
+
+/* Tablets (769px to 992px) */
+@media (min-width: 769px) and (max-width: 992px) {
+  .container {
+    width: 95%;
+    padding: 20px;
+    margin: 0 auto;
+  }
+  
+  .header {
+    font-size: 2rem;
+  }
+  
+  .navbar {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .sidebar {
+    width: 220px;
+  }
+  
+  .main-content {
+    margin-left: 230px;
+  }
+}
+
+/* Small desktops / laptops (993px to 1200px) */
+@media (min-width: 993px) and (max-width: 1200px) {
+  .container {
+    width: 85%;
+    padding: 25px;
+    margin: 0 auto;
+  }
+  
+  .header {
+    font-size: 2.25rem;
+  }
+  
+  .sidebar {
+    width: 240px;
+  }
+  
+  .main-content {
+    margin-left: 250px;
+  }
+}
+
+/* Large desktops (above 1200px) */
+@media (min-width: 1201px) {
+  .container {
+    width: 80%;
+    padding: 30px;
+    margin: 0 auto;
+  }
+  
+  .header {
+    font-size: 2.5rem;
+  }
+  
+  .sidebar {
+    width: 260px;
+  }
+  
+  .main-content {
+    margin-left: 270px;
+  }
+}
