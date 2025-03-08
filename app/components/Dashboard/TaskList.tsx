@@ -28,7 +28,10 @@ export default function TaskList({ tasks }: TaskListProps) {
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {tasks.map((task) => (
-              <tr key={task.id}>
+              <tr
+                key={task.id}
+                className="transition-colors duration-200 hover:bg-gray-50"
+              >
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   {task.name}
                 </td>
