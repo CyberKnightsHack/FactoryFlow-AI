@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useState } from 'react';
 import {
   HomeIcon,
   ChartBarIcon,
@@ -16,6 +17,8 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ user }: SidebarProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
   const navigation = [
     { name: 'Dashboard', href: '/', icon: HomeIcon },
     { name: 'Analytics', href: '/analytics', icon: ChartBarIcon },
@@ -30,39 +33,100 @@ export default function Sidebar({ user }: SidebarProps) {
   ];
 
   return (
-    <div className="flex flex-col h-full bg-gray-900 text-white w-64">
-      <div className="p-4">
+    <>
+      {/* Mobile Header */}
+      <div className="md:hidden flex items-center justify-between bg-gray-900 text-white p-4">
         <div className="flex items-center space-x-2">
           <img src="/logo.webp" alt="BMW Logo" className="h-8 w-8" />
           <span className="text-xl font-bold">Car Manufacturing</span>
         </div>
+        <button onClick={() => setIsOpen(!isOpen)} className="focus:outline-none">
+          <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {isOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            )}
+          </svg>
+        </button>
       </div>
-      <nav className="flex-1 p-4">
-        <ul className="space-y-2">
-          {navigation.map((item) => (
-            <li key={item.name}>
-              <Link
-                href={item.href}
-                className="flex items-center space-x-3 px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
-              >
-                <item.icon className="h-5 w-5" />
-                <span>{item.name}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
-      <div className="p-4 border-t border-gray-800">
-        <div className="flex items-center space-x-3">
-          <div className="h-8 w-8 rounded-full bg-gray-700 flex items-center justify-center">
-            {user.name.charAt(0)}
+
+      {/* Mobile Sidebar */}
+      <div
+        className={`md:hidden fixed top-0 left-0 h-full w-64 bg-gray-900 text-white transform ${
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        } transition-transform duration-300 ease-in-out z-50`}
+      >
+        <div className="p-4">
+          <div className="flex items-center space-x-2">
+            <img src="/logo.webp" alt="BMW Logo" className="h-8 w-8" />
+            <span className="text-xl font-bold">Car Manufacturing</span>
           </div>
-          <div>
-            <p className="font-medium">{user.name}</p>
-            <p className="text-sm text-gray-400 capitalize">{user.role}</p>
+        </div>
+        <nav className="p-4">
+          <ul className="space-y-2">
+            {navigation.map((item) => (
+              <li key={item.name}>
+                <Link
+                  href={item.href}
+                  className="flex items-center space-x-3 px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <item.icon className="h-5 w-5" />
+                  <span>{item.name}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div className="p-4 border-t border-gray-800">
+          <div className="flex items-center space-x-3">
+            <div className="h-8 w-8 rounded-full bg-gray-700 flex items-center justify-center">
+              {user.name.charAt(0)}
+            </div>
+            <div>
+              <p className="font-medium">{user.name}</p>
+              <p className="text-sm text-gray-400 capitalize">{user.role}</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+      {/* Desktop Sidebar */}
+      <div className="hidden md:flex md:flex-col md:h-full md:bg-gray-900 md:text-white md:w-64">
+        <div className="p-4">
+          <div className="flex items-center space-x-2">
+            <img src="/logo.webp" alt="BMW Logo" className="h-8 w-8" />
+            <span className="text-xl font-bold">Car Manufacturing</span>
+          </div>
+        </div>
+        <nav className="flex-1 p-4">
+          <ul className="space-y-2">
+            {navigation.map((item) => (
+              <li key={item.name}>
+                <Link
+                  href={item.href}
+                  className="flex items-center space-x-3 px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+                >
+                  <item.icon className="h-5 w-5" />
+                  <span>{item.name}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div className="p-4 border-t border-gray-800">
+          <div className="flex items-center space-x-3">
+            <div className="h-8 w-8 rounded-full bg-gray-700 flex items-center justify-center">
+              {user.name.charAt(0)}
+            </div>
+            <div>
+              <p className="font-medium">{user.name}</p>
+              <p className="text-sm text-gray-400 capitalize">{user.role}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
