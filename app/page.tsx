@@ -1,3 +1,5 @@
+import '../styles.css';
+
 import Sidebar from './components/Layout/Sidebar';
 import RobotStatus from './components/Dashboard/RobotStatus';
 import TaskList from './components/Dashboard/TaskList';
