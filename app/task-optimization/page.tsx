@@ -100,6 +100,14 @@ const lineData = {
   ]
 };
 
+// Sample data for task allocation table
+const taskAllocationData = [
+  { id: '1', taskName: 'Assembly', assignedRobot: 'Robot A', status: 'Completed', efficiency: '92%' },
+  { id: '2', taskName: 'Welding', assignedRobot: 'Robot B', status: 'In Progress', efficiency: '85%' },
+  { id: '3', taskName: 'Painting', assignedRobot: 'Robot C', status: 'Pending', efficiency: 'N/A' },
+  { id: '4', taskName: 'Inspection', assignedRobot: 'Robot D', status: 'Completed', efficiency: '95%' },
+];
+
 export default function TaskOptimization() {
   return (
     <>
@@ -132,8 +140,6 @@ export default function TaskOptimization() {
           {/* Interactive Graphs Section */}
           <motion.section variants={fadeUpVariant} className="bg-white p-6 rounded-lg shadow space-y-6">
             <h2 className="text-2xl font-semibold mb-3">Interactive Performance Metrics</h2>
-           
-           
             {/* Bar Chart */}
             <div>
               <h3 className="text-xl font-medium mb-2">Robot Workload Distribution</h3>
@@ -146,7 +152,33 @@ export default function TaskOptimization() {
             </div>
           </motion.section>
 
-          
+          {/* Task Allocation Table Section */}
+          <motion.section variants={fadeUpVariant} className="bg-white p-6 rounded-lg shadow">
+            <h2 className="text-2xl font-semibold mb-3">Task Allocation Details</h2>
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Task</th>
+                    <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Assigned Robot</th>
+                    <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Efficiency</th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {taskAllocationData.map(task => (
+                    <tr key={task.id}>
+                      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{task.taskName}</td>
+                      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{task.assignedRobot}</td>
+                      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{task.status}</td>
+                      <td className="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{task.efficiency}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </motion.section>
+
         </motion.div>
       </main>
     </>
