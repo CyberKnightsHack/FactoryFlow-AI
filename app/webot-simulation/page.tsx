@@ -59,7 +59,7 @@ export default function WebotSimulationPage() {
   return (
     <>
       <Sidebar user={mockUser} />
-      <main className="flex-1 p-8 bg-gray-50">
+      <main className="flex-1 p-4 sm:p-8 bg-gray-50">
         <motion.div
           className="space-y-8"
           initial="hidden"
@@ -115,16 +115,16 @@ export default function WebotSimulationPage() {
               The live simulation below shows a real-time view of the Webots simulation environment.
               Ensure your Webots streaming server is running at the specified URL.
             </p>
-            <div className="overflow-hidden rounded-lg shadow-lg">
-              {/* Update the src attribute with your Webots streaming URL */}
-              <iframe
-                src="http://localhost:1234"
-                width="100%"
-                height="500"
-                className="border"
-                allowFullScreen
-                title="Webots Simulation"
-              />
+            <div className="relative w-full overflow-hidden rounded-lg shadow-lg">
+              {/* The aspect-video class maintains a 16:9 aspect ratio */}
+              <div className="aspect-video">
+                <iframe
+                  src="http://localhost:1234"
+                  className="w-full h-full border"
+                  allowFullScreen
+                  title="Webots Simulation"
+                />
+              </div>
             </div>
           </motion.div>
         </motion.div>
