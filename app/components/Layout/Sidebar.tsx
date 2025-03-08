@@ -30,41 +30,39 @@ export default function Sidebar({ user }: SidebarProps) {
   ];
 
   return (
-    <nav className="bg-gray-900 text-white w-full">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Left: Logo and Brand */}
-          <div className="flex items-center space-x-2">
-            <img src="/logo.webp" alt="BMW Logo" className="h-8 w-8" />
-            <span className="text-xl font-bold">Car Manufacturing</span>
+    <div className="flex flex-col h-full bg-gray-900 text-white w-64">
+      <div className="p-4">
+        <div className="flex items-center space-x-2">
+          <img src="/logo.webp" alt="BMW Logo" className="h-8 w-8" />
+          <span className="text-xl font-bold">Car Manufacturing</span>
+        </div>
+      </div>
+      <nav className="flex-1 p-4">
+        <ul className="space-y-2">
+          {navigation.map((item) => (
+            <li key={item.name}>
+              <Link
+                href={item.href}
+                className="flex items-center space-x-3 px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+              >
+                <item.icon className="h-5 w-5" />
+                <span>{item.name}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <div className="p-4 border-t border-gray-800">
+        <div className="flex items-center space-x-3">
+          <div className="h-8 w-8 rounded-full bg-gray-700 flex items-center justify-center">
+            {user.name.charAt(0)}
           </div>
-          {/* Center: Navigation Links */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="flex items-center space-x-1 px-3 py-2 rounded-md hover:bg-gray-800 transition-colors"
-                >
-                  <item.icon className="h-5 w-5" />
-                  <span>{item.name}</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-          {/* Right: User Info */}
-          <div className="flex items-center space-x-3">
-            <div className="h-8 w-8 rounded-full bg-gray-700 flex items-center justify-center">
-              {user.name.charAt(0)}
-            </div>
-            <div>
-              <p className="font-medium">{user.name}</p>
-              <p className="text-sm text-gray-400 capitalize">{user.role}</p>
-            </div>
+          <div>
+            <p className="font-medium">{user.name}</p>
+            <p className="text-sm text-gray-400 capitalize">{user.role}</p>
           </div>
         </div>
       </div>
-    </nav>
+    </div>
   );
 }
