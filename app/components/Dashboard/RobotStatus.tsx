@@ -12,7 +12,7 @@ export default function RobotStatus({ robots }: RobotStatusProps) {
         {robots.map((robot) => (
           <div
             key={robot.id}
-            className="border rounded-lg p-4 flex flex-col space-y-2"
+            className="border rounded-lg p-4 flex flex-col space-y-2 transition duration-200 hover:shadow-lg"
           >
             <div className="flex justify-between items-center">
               <h3 className="font-medium">{robot.name}</h3>
