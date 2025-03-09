@@ -1,3 +1,6 @@
+'use client';
+
+import { motion } from 'framer-motion';
 import Sidebar from '../components/Layout/Sidebar';
 
 // Temporary mock data
@@ -30,40 +33,49 @@ export default function Maintenance() {
   return (
     <>
       <Sidebar user={mockUser} />
-      <main className="flex-1 p-8 overflow-auto">
+      <main className="flex-1 p-8 overflow-auto bg-gradient-to-b from-blue-50 to-white">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl font-bold mb-8">Maintenance</h1>
+          <motion.h1 
+            className="text-4xl font-extrabold text-gray-900 mb-8 text-center"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            🛠️ Maintenance Dashboard
+          </motion.h1>
 
           <div className="grid gap-8">
-            <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-semibold mb-4">Maintenance Schedule</h2>
+            {/* Maintenance Schedule */}
+            <motion.div 
+              className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition duration-300"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h2 className="text-xl font-semibold text-blue-700 mb-4">📅 Maintenance Schedule</h2>
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead>
+                <table className="min-w-full divide-y divide-gray-200 bg-white rounded-lg shadow-md">
+                  <thead className="bg-gray-100">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Robot
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Last Maintenance
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Next Due
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Status
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Type
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Actions
-                      </th>
+                      {['Robot', 'Last Maintenance', 'Next Due', 'Status', 'Type', 'Actions'].map((header) => (
+                        <th
+                          key={header}
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider"
+                        >
+                          {header}
+                        </th>
+                      ))}
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {maintenanceSchedule.map((schedule) => (
-                      <tr key={schedule.id}>
+                    {maintenanceSchedule.map((schedule, index) => (
+                      <motion.tr
+                        key={schedule.id}
+                        className="hover:bg-gray-50 transition duration-300"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: index * 0.1 }}
+                      >
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                           {schedule.robotName}
                         </td>
@@ -73,12 +85,12 @@ export default function Maintenance() {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {schedule.nextMaintenance}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm">
                           <span
-                            className={`px-2 py-1 rounded-full text-xs ${
+                            className={`px-3 py-1 rounded-full text-xs font-bold ${
                               schedule.status === 'scheduled'
-                                ? 'bg-green-100 text-green-800'
-                                : 'bg-red-100 text-red-800'
+                                ? 'bg-green-200 text-green-800'
+                                : 'bg-red-200 text-red-800'
                             }`}
                           >
                             {schedule.status}
@@ -87,69 +99,57 @@ export default function Maintenance() {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {schedule.type}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          <button className="text-indigo-600 hover:text-indigo-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm">
+                          <button className="text-indigo-600 hover:text-indigo-900 font-semibold">
                             Schedule
                           </button>
                         </td>
-                      </tr>
+                      </motion.tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-white rounded-lg shadow p-6">
-                <h3 className="text-lg font-medium mb-2">Maintenance Metrics</h3>
-                <dl className="space-y-2">
-                  <div className="flex justify-between">
-                    <dt className="text-gray-600">Scheduled</dt>
-                    <dd className="font-medium">5</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-gray-600">Completed</dt>
-                    <dd className="font-medium">12</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-gray-600">Overdue</dt>
-                    <dd className="font-medium text-red-600">1</dd>
-                  </div>
-                </dl>
-              </div>
+            {/* Maintenance Metrics, Inventory & Quick Actions */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  title: '📊 Maintenance Metrics',
+                  data: [
+                    { label: 'Scheduled', value: '5', color: 'text-blue-900' },
+                    { label: 'Completed', value: '12', color: 'text-green-900' },
+                    { label: 'Overdue', value: '1', color: 'text-red-900' },
+                  ],
+                },
+                {
+                  title: '📦 Parts Inventory',
+                  data: [
+                    { label: 'Servo Motors', value: '24' },
+                    { label: 'Sensors', value: '56' },
+                    { label: 'Control Units', value: '18' },
+                  ],
+                },
+              ].map((section, index) => (
+                <motion.div
+                  key={index}
+                  className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition duration-300"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.2 }}
+                >
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">{section.title}</h3>
+                  <dl className="space-y-3">
+                    {section.data.map((item, idx) => (
+                      <div key={idx} className="flex justify-between text-gray-600">
+                        <dt>{item.label}</dt>
+                        {/* <dd className={`font-bold ${item.color || 'text-gray-900'}`}>{item.value}</dd> */}
+                      </div>
+                    ))}
+                  </dl>
+                </motion.div>
+              ))}
 
-              <div className="bg-white rounded-lg shadow p-6">
-                <h3 className="text-lg font-medium mb-2">Parts Inventory</h3>
-                <dl className="space-y-2">
-                  <div className="flex justify-between">
-                    <dt className="text-gray-600">Servo Motors</dt>
-                    <dd className="font-medium">24</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-gray-600">Sensors</dt>
-                    <dd className="font-medium">56</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-gray-600">Control Units</dt>
-                    <dd className="font-medium">18</dd>
-                  </div>
-                </dl>
-              </div>
-
-              <div className="bg-white rounded-lg shadow p-6">
-                <h3 className="text-lg font-medium mb-2">Quick Actions</h3>
-                <div className="space-y-2">
-                  <button className="w-full px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">
-                    Schedule Maintenance
-                  </button>
-                  <button className="w-full px-4 py-2 bg-white border border-gray-300 rounded text-gray-700 hover:bg-gray-50">
-                    Order Parts
-                  </button>
-                  <button className="w-full px-4 py-2 bg-white border border-gray-300 rounded text-gray-700 hover:bg-gray-50">
-                    Generate Report
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
         </div>
