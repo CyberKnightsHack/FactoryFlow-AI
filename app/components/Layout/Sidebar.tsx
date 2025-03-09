@@ -30,9 +30,9 @@ export default function Sidebar({ user }: SidebarProps) {
     { name: "Industry Overview", href: "/industry-overview", icon: BriefcaseIcon },
     { name: "Webot Simulation", href: "/webot-simulation", icon: CpuChipIcon },
     { name: "Task Optimization", href: "/task-optimization", icon: AdjustmentsHorizontalIcon },
-    ...(user.role === "admin"
-      ? [{ name: "Team Management", href: "/team", icon: UserGroupIcon }]
-      : []),
+    // ...(user.role === "admin"
+    //   ? [{ name: "Team Management", href: "/team", icon: UserGroupIcon }]
+    //   : []),
     { name: "Settings", href: "/settings", icon: Cog6ToothIcon },
   ];
 
