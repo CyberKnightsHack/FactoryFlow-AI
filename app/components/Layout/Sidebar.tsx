@@ -55,7 +55,7 @@ export default function Sidebar({ user }: SidebarProps) {
           {/* Sidebar Header (Logo & Title) */}
           <div className="flex items-center p-4 border-b border-gray-800">
             <img src="/logo.webp" alt="Logo" className="h-8 w-8 mr-2" />
-            <span className="text-xl font-bold">Car Manufacturing</span>
+            <span className="text-xl font-bold">FactoryFlowAI</span>
           </div>
 
           {/* Navigation Links */}
