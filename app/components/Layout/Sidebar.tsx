@@ -54,7 +54,7 @@ export default function Sidebar({ user }: SidebarProps) {
         <div className="flex flex-col h-full">
           {/* Sidebar Header (Logo & Title) */}
           <div className="flex items-center p-4 border-b border-gray-800">
-            <img src="/logo.webp" alt="Logo" className="h-8 w-8 mr-2" />
+            <img src="/vercel.svg" alt="Logo" className="h-8 w-8 mr-2" />
             <span className="text-xl font-bold">FactoryFlowAI</span>
           </div>
 
