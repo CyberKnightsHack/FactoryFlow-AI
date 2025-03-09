@@ -41,7 +41,7 @@ FactoryFlow AI leverages modern web technologies and machine learning techniques
 
 - **Krishna K** – Backend Developer, Database Manager & Team Lead  
 - **Naveen Kumar B** – Simulation Specialist  
-- **Sriram S** – Frontend Developer and UX
+- **Sriram S** – Frontend Developer and UI&UX
 
 ## Installation & Setup
 
