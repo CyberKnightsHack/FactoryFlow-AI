@@ -87,7 +87,7 @@ export default function WebotSimulationPage() {
                 muted
                 loop
               >
-                <source src="/analy.mp4" type="video/mp4" />
+                <source src="/WeSI.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             </div>
