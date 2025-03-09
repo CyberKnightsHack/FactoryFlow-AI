@@ -231,11 +231,6 @@ export default function IndustryOverview() {
             className="bg-white p-6 rounded-lg shadow-lg"
             variants={fadeUpVariant}
           >
-            <p className="text-gray-700 text-lg leading-relaxed">
-              By leveraging interactive graphs and clear data representation, manufacturers can quickly grasp
-              performance trends and make informed decisions. Embrace the power of data-driven insights to optimize operations
-              and drive the future of smart manufacturing.
-            </p>
           </motion.div>
         </motion.div>
       </main>
