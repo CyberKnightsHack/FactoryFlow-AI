@@ -64,7 +64,7 @@ export default function WebotSimulationPage() {
             variants={fadeUpVariant}
             whileHover={hoverScale}
           >
-            Webots Simulation Live
+            Live Webots Simulation
           </motion.h1>
 
           {/* Description */}
