@@ -64,7 +64,7 @@ export default function WebotSimulationPage() {
             variants={fadeUpVariant}
             whileHover={hoverScale}
           >
-            Webots Simulation Video Integration
+            Webots Simulation Live
           </motion.h1>
 
           {/* Description */}
@@ -87,7 +87,6 @@ export default function WebotSimulationPage() {
               <video
                 ref={videoRef}
                 className="w-full h-auto rounded-lg"
-                controls
                 muted
                 loop
               >
