@@ -1,65 +1,53 @@
 "use client"; // Ensures client-side rendering for animations
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import axios from 'axios';
-import Sidebar from '../components/Layout/Sidebar';
+import { useRef, useState } from "react";
+import { motion } from "framer-motion";
+import Sidebar from "../components/Layout/Sidebar";
 
 type User = {
   id: string;
   name: string;
-  role: 'admin' | 'manager' | 'operator';
+  role: "admin" | "manager" | "operator";
 };
 
 const mockUser: User = {
-  id: '1',
-  name: 'John Doe',
-  role: 'admin',
+  id: "1",
+  name: "John Doe",
+  role: "admin",
 };
 
-// Animation variants for fade and hover effects
+// Animation variants
 const fadeUpVariant = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
 const hoverScale = { scale: 1.03 };
 
 export default function WebotSimulationPage() {
   const [simulationStatus, setSimulationStatus] = useState("stopped");
-  const [loading, setLoading] = useState(false);
-  const BACKEND_URL = "http://localhost:4000"; // Update if necessary
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Function to call backend endpoint to start simulation
-  const startSimulation = async () => {
-    setLoading(true);
-    try {
-      await axios.post(`${BACKEND_URL}/api/webots/start`);
+  // Function to start simulation (play video)
+  const startSimulation = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
       setSimulationStatus("running");
-    } catch (error) {
-      console.error("Error starting simulation:", error);
-      alert("Failed to start simulation.");
     }
-    setLoading(false);
   };
 
-  // Function to call backend endpoint to stop simulation
-  const stopSimulation = async () => {
-    setLoading(true);
-    try {
-      await axios.post(`${BACKEND_URL}/api/webots/stop`);
+  // Function to stop simulation (pause video)
+  const stopSimulation = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
       setSimulationStatus("stopped");
-    } catch (error) {
-      console.error("Error stopping simulation:", error);
-      alert("Failed to stop simulation.");
     }
-    setLoading(false);
   };
 
   return (
     <>
       <Sidebar user={mockUser} />
-      <main className="flex-1 p-4 sm:p-8 bg-gray-50">
+      <main className="flex-1 p-8 bg-gray-50">
         <motion.div
           className="space-y-8"
           initial="hidden"
@@ -72,14 +60,38 @@ export default function WebotSimulationPage() {
             variants={fadeUpVariant}
             whileHover={hoverScale}
           >
-            Webots Simulation Integration
+            Webots Simulation Video Integration
           </motion.h1>
 
           {/* Description */}
           <motion.p className="text-gray-700 text-lg" variants={fadeUpVariant}>
             This page demonstrates the integration of Webots simulation into our manufacturing automation system.
-            Monitor the live simulation and use the control panel to start or stop simulation processes and interact with the system.
+            Monitor the live simulation below and use the control panel to start or stop playback.
           </motion.p>
+
+          {/* Embedded Webots Simulation Video */}
+          <motion.div
+            className="bg-white p-6 rounded-lg shadow-lg"
+            variants={fadeUpVariant}
+          >
+            <h2 className="text-2xl font-semibold mb-4">Live Simulation Video</h2>
+            <p className="text-gray-600 mb-4">
+              The video below represents a real-time Webots simulation.
+              Use the controls below to play or pause the simulation.
+            </p>
+            <div className="overflow-hidden rounded-lg shadow-lg relative">
+              <video
+                ref={videoRef}
+                className="w-full h-auto rounded-lg"
+                
+                muted
+                loop
+              >
+                <source src="/analy.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </motion.div>
 
           {/* Control Panel */}
           <motion.div
@@ -89,42 +101,20 @@ export default function WebotSimulationPage() {
             <button
               className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition disabled:opacity-50"
               onClick={startSimulation}
-              disabled={loading || simulationStatus === "running"}
+              disabled={simulationStatus === "running"}
             >
-              {loading && simulationStatus !== "running" ? "Starting..." : "Start Simulation"}
+              Start Simulation
             </button>
             <button
               className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition mt-4 sm:mt-0 disabled:opacity-50"
               onClick={stopSimulation}
-              disabled={loading || simulationStatus === "stopped"}
+              disabled={simulationStatus === "stopped"}
             >
-              {loading && simulationStatus !== "stopped" ? "Stopping..." : "Stop Simulation"}
+              Stop Simulation
             </button>
             <div className="mt-4 sm:mt-0 text-gray-800">
-              Current Status: <span className="font-semibold">{simulationStatus}</span>
-            </div>
-          </motion.div>
-
-          {/* Embedded Webots Simulation */}
-          <motion.div
-            className="bg-white p-6 rounded-lg shadow"
-            variants={fadeUpVariant}
-          >
-            <h2 className="text-2xl font-semibold mb-4">Live Simulation View</h2>
-            <p className="text-gray-600 mb-4">
-              The live simulation below shows a real-time view of the Webots simulation environment.
-              Ensure your Webots streaming server is running at the specified URL.
-            </p>
-            <div className="relative w-full overflow-hidden rounded-lg shadow-lg">
-              {/* The aspect-video class maintains a 16:9 aspect ratio */}
-              <div className="aspect-video">
-                <iframe
-                  src="http://localhost:1234"
-                  className="w-full h-full border"
-                  allowFullScreen
-                  title="Webots Simulation"
-                />
-              </div>
+              Current Status:{" "}
+              <span className="font-semibold">{simulationStatus}</span>
             </div>
           </motion.div>
         </motion.div>
