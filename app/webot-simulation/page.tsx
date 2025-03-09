@@ -51,42 +51,29 @@ export default function WebotSimulationPage() {
   return (
     <>
       <Sidebar user={mockUser} />
-      <main className="flex-1 p-8 bg-gray-50">
+      <main className="flex-1 flex items-center justify-center p-8 bg-gray-50 h-screen">
         <motion.div
-          className="max-w-5xl mx-auto space-y-8"
+          className="max-w-4xl w-full bg-white p-6 rounded-lg shadow-lg"
           initial="hidden"
           animate="visible"
           variants={fadeUpVariant}
         >
           {/* Page Title */}
           <motion.h1
-            className="text-3xl font-bold text-blue-800 text-center"
+            className="text-3xl font-bold text-blue-800 text-center mb-4"
             variants={fadeUpVariant}
             whileHover={hoverScale}
           >
-            Webots Simulation Video Integration
+            Webots Simulation Video
           </motion.h1>
 
-          {/* Description */}
-          <motion.p className="text-gray-700 text-lg text-center" variants={fadeUpVariant}>
-            This page demonstrates the integration of Webots simulation into our manufacturing automation system.
-            Monitor the live simulation below and use the control panel to start or stop playback.
-          </motion.p>
-
-          {/* Embedded Webots Simulation Video */}
-          <motion.div
-            className="bg-white p-6 rounded-lg shadow-lg max-w-4xl mx-auto"
-            variants={fadeUpVariant}
-          >
-            <h2 className="text-2xl font-semibold mb-4 text-center">Live Simulation Video</h2>
-            <p className="text-gray-600 mb-4 text-center">
-              The video below represents a real-time Webots simulation.
-              Use the controls below to play or pause the simulation.
-            </p>
-            <div className="overflow-hidden rounded-lg shadow-lg">
+          {/* Video & Controls in a Single View */}
+          <div className="flex flex-col items-center space-y-4">
+            {/* Video Player */}
+            <div className="w-full max-h-[400px] overflow-hidden rounded-lg shadow-lg">
               <video
                 ref={videoRef}
-                className="w-full h-auto max-h-[500px] mx-auto rounded-lg"
+                className="w-full h-auto max-h-[400px] rounded-lg"
                 controls
                 muted
                 loop
@@ -95,32 +82,36 @@ export default function WebotSimulationPage() {
                 Your browser does not support the video tag.
               </video>
             </div>
-          </motion.div>
 
-          {/* Control Panel */}
-          <motion.div
-            className="bg-white p-6 rounded-lg shadow-lg flex flex-col sm:flex-row justify-center items-center sm:space-x-6 max-w-4xl mx-auto"
-            variants={fadeUpVariant}
-          >
-            <button
-              className="bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 transition disabled:opacity-50"
-              onClick={startSimulation}
-              disabled={simulationStatus === "running"}
+            {/* Control Panel */}
+            <motion.div
+              className="flex flex-col sm:flex-row items-center sm:space-x-6 w-full"
+              variants={fadeUpVariant}
             >
-              Start Simulation
-            </button>
-            <button
-              className="bg-red-600 text-white px-5 py-2 rounded-lg hover:bg-red-700 transition mt-4 sm:mt-0 disabled:opacity-50"
-              onClick={stopSimulation}
-              disabled={simulationStatus === "stopped"}
-            >
-              Stop Simulation
-            </button>
-            <div className="mt-4 sm:mt-0 text-gray-800 font-semibold">
-              Current Status:{" "}
-              <span className="font-bold">{simulationStatus}</span>
+              <button
+                className="bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 transition disabled:opacity-50 w-full sm:w-auto"
+                onClick={startSimulation}
+                disabled={simulationStatus === "running"}
+              >
+                Start Simulation
+              </button>
+              <button
+                className="bg-red-600 text-white px-5 py-2 rounded-lg hover:bg-red-700 transition disabled:opacity-50 mt-4 sm:mt-0 w-full sm:w-auto"
+                onClick={stopSimulation}
+                disabled={simulationStatus === "stopped"}
+              >
+                Stop Simulation
+              </button>
+            </motion.div>
+
+            {/* Status Display */}
+            <div className="text-gray-800 font-semibold text-lg text-center mt-2">
+              Status:{" "}
+              <span className={`font-bold ${simulationStatus === "running" ? "text-green-600" : "text-red-600"}`}>
+                {simulationStatus}
+              </span>
             </div>
-          </motion.div>
+          </div>
         </motion.div>
       </main>
     </>
